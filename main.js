@@ -10,12 +10,12 @@ async function copyCollection() {
     console.log('Connected to destination at:', targetUri);
 
     const sourceCollection = sourceClient.db().collection('archiveds');
-    const targetCollection = targetClient.db().collection('temp-migration');
+    const targetCollection = targetClient.db().collection('archiveds');
 
     const batchSize = 250;
     let count = 0;
-
     const startTime = Date.now();
+    console.log(`start copying in ${startTime}`);
     const filter = {
         creationDate: {
             $gte: new Date('2023-05-01T00:00:00Z')
@@ -26,20 +26,18 @@ async function copyCollection() {
     const cursor = sourceCollection.find(filter);
     console.log('Reading data ...');
     while (await cursor.hasNext()) {
-        console.log('Pushed',);
-        const batch = [];
-        for (let i = 0; i < batchSize && await cursor.hasNext(); i++) {
-            batch.push(await cursor.next());
-            console.log('Pushed ' + i);
+        let nextDoc = await cursor.next();
+        count++;
+        try {
+            await targetCollection.insertOne(nextDoc);
         }
-        console.log('Preparing batch insert for :' + batch.length);
-        count += batch.length;
-        console.log('Inserting ...');
-        await targetCollection.insertMany(batch);
+        catch (ex) {
+            console.log('Error in this inser: ' + nextDoc._id);
+            count--;
+        }
         console.clear();
-        console.log(`Inserted ${count} documents`);
+        console.log(`Copied ${count} documents ...`);
     }
-
     const endTime = Date.now();
     console.log(`Finished copying ${count} documents in ${endTime - startTime}ms`);
     await sourceClient.close();
