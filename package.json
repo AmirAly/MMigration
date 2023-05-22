@@ -1,5 +1,27 @@
 {
   "dependencies": {
     "mongodb": "^5.5.0"
-  }
+  },
+  "name": "mmigration",
+  "description": "Mongo migration (Simple)",
+  "version": "1.0.0",
+  "main": "main.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmirAly/MMigration.git"
+  },
+  "keywords": [
+    "migration",
+    "mongo"
+  ],
+  "author": "Amir Aly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmirAly/MMigration/issues"
+  },
+  "homepage": "https://github.com/AmirAly/MMigration#readme"
 }
