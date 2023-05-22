@@ -1,4 +1,6 @@
 const { MongoClient } = require('mongodb');
+var prompt = require('prompt');
+
 async function copyCollection() {
     const sourceUri = 'mongodb+srv://abc-import-ali-bi:WC2oR3xXJTSoElx9RExIY6b@robodesk2.yzwsp.mongodb.net/robodesk-alfa';
     const targetUri = 'mongodb+srv://doadmin:7206U984MmoRZqI5@robodesk-alfa-lab-73d2f395.mongo.ondigitalocean.com/robodesk?tls=true&authSource=admin&replicaSet=robodesk-alfa-lab';
@@ -43,3 +45,4 @@ async function copyCollection() {
     await targetClient.close();
 }
 copyCollection();
+prompt.start();
