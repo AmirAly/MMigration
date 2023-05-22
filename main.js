@@ -12,7 +12,7 @@ async function copyCollection() {
     const sourceCollection = sourceClient.db().collection('archiveds');
     const targetCollection = targetClient.db().collection('temp-migration');
 
-    const batchSize = 100;
+    const batchSize = 250;
     let count = 0;
 
     const startTime = Date.now();
